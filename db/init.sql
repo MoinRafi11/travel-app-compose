@@ -1,7 +1,5 @@
 -- Create the travel application database
-CREATE DATABASE travel_db;
 
-\c travel_db;
 
 -- Create destinations table
 CREATE TABLE IF NOT EXISTS destinations (
