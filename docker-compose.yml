@@ -1,9 +1,8 @@
 services:
  
   travel-app:
-    build:
-     context: .
-     dockerfile: Dockerfile
+  
+    image: moinrafi11/meen-travel-app:latest
 
     container_name: travel_app
     ports:
@@ -16,8 +15,8 @@ services:
      POSTGRES_USER: ${POSTGRES_USER}
      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 
-    volumes:
-      - ./src:/var/www/html
+    # volumes:
+    #   - ./src:/var/www/html
 
     networks:
       - travel-network
@@ -30,13 +29,13 @@ services:
 
   service:
    adminer:
-    image: adminer:latest
-    container_name: dar-as-safar-adminer
+    image: adminer:5
+    container_name: travel-app-adminer
     restart: unless-stopped
     ports:
       - "8085:8080"
     depends_on:
-      - postgres
+      - travel_db
 
   travel_db:
    image: postgres:15-alpine
@@ -47,6 +46,7 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+  
 
    volumes:
       - pgdata:/var/lib/postgresql/data
