@@ -27,15 +27,7 @@ services:
 
     restart: unless-stopped
 
-  service:
-   adminer:
-    image: adminer:5
-    container_name: travel-app-adminer
-    restart: unless-stopped
-    ports:
-      - "8085:8080"
-    depends_on:
-      - travel_db
+  
 
   travel_db:
    image: postgres:15-alpine
