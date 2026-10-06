@@ -37,7 +37,7 @@ pipeline {
             steps {
                 withCredentials([
                     string(
-                        credentialsId: 'travel-M-app-PGPASS',
+                        credentialsId: 'travel-M-app-PG_PASS',
                         variable: 'DB_PASS'
                     )
                 ]) {
