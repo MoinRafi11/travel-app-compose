@@ -46,6 +46,8 @@ pipeline {
 POSTGRES_DB=travel_db
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=${DB_PASS}
+DB_HOST=travel_db
+DB_PORT=5432
 EOF
                     """
                 }
