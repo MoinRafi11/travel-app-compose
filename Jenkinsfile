@@ -79,7 +79,7 @@ EOF
 
         stage('Approval Gate') {
             steps {
-                input message: "Verify Staging environment at http://${STAGING_IP}:8090. Promote to Production?",
+                input message: "Verify Staging environment at http://${STAGING_IP}:8085. Promote to Production?",
                       ok: "Deploy!"
             }
         }
