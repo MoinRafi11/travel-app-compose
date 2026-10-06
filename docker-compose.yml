@@ -22,8 +22,8 @@ services:
       - travel-network
 
     depends_on:
-      - travel_db:
-      #  condition: service_healthy
+      travel_db:
+       condition: service_healthy
 
     restart: unless-stopped
 
