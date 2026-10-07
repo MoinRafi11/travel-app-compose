@@ -26,8 +26,8 @@ pipeline {
                         sh "echo \$PASS | docker login -u \$USER --password-stdin"
 
                         // Build & Push single image artifact for both environments
-                        sh "docker build -t ${DOCKER_USER}/travel-app:v${TAG} ."
-                        sh "docker push ${DOCKER_USER}/travel-app:v${TAG}"
+                        sh "docker build -t ${DOCKER_USER}/meen-travel-app:v${TAG} ."
+                        sh "docker push ${DOCKER_USER}/meen-travel-app:v${TAG}"
                     }
                 }
             }
