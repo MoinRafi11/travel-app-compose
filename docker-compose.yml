@@ -2,7 +2,7 @@ services:
  
   travel-app:
   
-    image: moinrafi11/meen-travel-app:latest
+    image: moinrafi11/meen-travel-app:v${TAG}
 
     container_name: travel_app
     ports:
