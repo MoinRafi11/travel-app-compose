@@ -2,11 +2,11 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_USER = "verventech"
+        DOCKER_USER = "moinrafi11"
         VM_USER = "verjenkins"
         STAGING_IP = "192.168.1.99"
         PROD_IP = "192.168.1.100"
-        DOCKER_CREDS_ID = "docker-hub-pat"
+        DOCKER_CREDS_ID = "My-PAT-Travel-APP"
         SSH_CREDS_ID = "vm-ssh-key"
         TAG = "${env.BUILD_NUMBER}"
     }
