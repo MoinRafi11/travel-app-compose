@@ -301,7 +301,7 @@ try {
     <div class="hero-content">
 
         <h1>
-            Explore. Discover. Wander.
+            Explore. Discover. Wander. Enjoy
         </h1>
 
         <p>
