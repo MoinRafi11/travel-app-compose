@@ -88,7 +88,7 @@ try {
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Wanderly | Explore the World</title>
+    <title>Wanderly | Explore the Kashmir</title>
 
     <style>
 
