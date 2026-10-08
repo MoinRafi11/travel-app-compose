@@ -9,6 +9,7 @@ pipeline {
         DOCKER_CREDS_ID = "My-PAT-Travel-APP"
         SSH_CREDS_ID = "vm-ssh-key"
         TAG = "${env.BUILD_NUMBER}"
+        APP_NAME = "meen-travel-app"
     }
 
     stages {
@@ -26,8 +27,8 @@ pipeline {
                         sh "echo \$PASS | docker login -u \$USER --password-stdin"
 
                         // Build & Push single image artifact for both environments
-                        sh "docker build -t ${DOCKER_USER}/meen-travel-app:v${TAG} ."
-                        sh "docker push ${DOCKER_USER}/meen-travel-app:v${TAG}"
+                        sh "docker build -t ${DOCKER_USER}/${APP_NAME}:v${TAG} ."
+                        sh "docker push ${DOCKER_USER}/${APP_NAME}:v${TAG}"
                     }
                 }
             }
@@ -59,20 +60,21 @@ EOF
                 sshagent([SSH_CREDS_ID]) {
 
                     // Remove old database directory
-                    sh "ssh -o StrictHostKeyChecking=no ${VM_USER}@${STAGING_IP} 'rm -rf ~/db'"
+                    sh "ssh -o StrictHostKeyChecking=no ${VM_USER}@${STAGING_IP} 'mkdir -p ~/${APP_NAME}'"
 
                     // Transfer Compose, environment file and database initialization
                     sh "scp -r -o StrictHostKeyChecking=no docker-compose.yml .env db ${VM_USER}@${STAGING_IP}:~/"
 
                     sh """
                         ssh -o StrictHostKeyChecking=no ${VM_USER}@${STAGING_IP} '
+                            cd ~/${APP_NAME}
                             docker rm -f travel-db travel-web 2>/dev/null || true
 
                             export TAG=${TAG}
                             export DOCKER_USER=${DOCKER_USER}
 
-                            docker compose pull
-                            docker compose up -d --remove-orphans
+                            docker compose -p ${APP_NAME} pull
+                            docker compose -p ${APP_NAME} up -d --force-recreate --remove-orphans
                         '
                     """
                 }
@@ -90,19 +92,20 @@ EOF
             steps {
                 sshagent([SSH_CREDS_ID]) {
 
-                    sh "ssh -o StrictHostKeyChecking=no ${VM_USER}@${PROD_IP} 'rm -rf ~/db'"
+                    sh "ssh -o StrictHostKeyChecking=no ${VM_USER}@${PROD_IP} 'mkdir -p ~/${APP_NAME}'"
 
                     sh "scp -r -o StrictHostKeyChecking=no docker-compose.yml .env db ${VM_USER}@${PROD_IP}:~/"
 
                     sh """
                         ssh -o StrictHostKeyChecking=no ${VM_USER}@${PROD_IP} '
+                            cd ~/${APP_NAME}
                             docker rm -f travel-db travel-web 2>/dev/null || true
 
                             export TAG=${TAG}
                             export DOCKER_USER=${DOCKER_USER}
 
-                            docker compose pull
-                            docker compose up -d --remove-orphans
+                            docker compose -p ${APP_NAME} pull
+                            docker compose -p ${APP_NAME} up -d --force-recreate --remove-orphans
                         '
                     """
                 }
