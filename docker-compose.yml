@@ -4,7 +4,7 @@ services:
   
     image: ${DOCKER_USER}/meen-travel-app:v${TAG}
 
-    container_name: travel_app
+    # container_name: travel_app    *let docker-compose assign a name automatically*
     ports:
      - "8085:80"
 
@@ -30,7 +30,7 @@ services:
   travel_db:
    image: postgres:15-alpine
 
-   container_name: travel-compose-db
+  #  container_name: travel-compose-db  *let docker-compose assign a name automatically*
 
    environment:
       - POSTGRES_DB=${POSTGRES_DB}
