@@ -94,7 +94,7 @@ EOF
 
                     sh "ssh -o StrictHostKeyChecking=no ${VM_USER}@${PROD_IP} 'mkdir -p ~/${APP_NAME}/'"
 
-                    sh "scp -r -o StrictHostKeyChecking=no docker-compose.yml .env db ${VM_USER}@${PROD_IP}:~/"
+                    sh "scp -r -o StrictHostKeyChecking=no docker-compose.yml .env db ${VM_USER}@${PROD_IP}:~/${APP_NAME}/"
 
                     sh """
                         ssh -o StrictHostKeyChecking=no ${VM_USER}@${PROD_IP} '
